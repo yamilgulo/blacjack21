@@ -17,6 +17,9 @@ const jugadorCartas     = document.querySelector('#jugador-cartas');
 const computadoraCartas = document.querySelector('#computadora-cartas');
 const btnNuevo          = document.querySelector('#btnNuevo');
 const btnDetener        = document.querySelector('#btnDetener');
+let radioAs1            = document.querySelector('#radioAs1');
+let radioAs11           = document.querySelector('#radioAs11');
+const botonesAses       = document.getElementsByName('radioAs');
 
 // Esta funcion crea una nueva baraja
 const crearDeck = () => {
@@ -132,7 +135,7 @@ const valorCarta = ( carta ) => {
     return ( isNaN(valor) ) ?
         // Los Ases valen 11, J,Q,K vale 10
         ((valor === 'A') ?
-            valor = 11 
+            valor = valorAz() 
         : 
             valor = 10)
         
@@ -147,9 +150,23 @@ const valorCarta = ( carta ) => {
 
 }
 
+//Saber si el jugador selecciona que el Az valga 1 u 11
+const valorAz = () => {
+    if(botonesAses[0].checked){
+        return botonesAses[0].value * 1;
+    }else{
+        return botonesAses[1].value * 1;
+    }
+    
+}
+
 
 // Eventos para escuchar
 btnPedir.addEventListener('click', function() {
+
+    // deshabilitar los elementos de entrada
+    botonesAses[0].disabled = true;
+    botonesAses[1].disabled = true;
 
     const carta = pedirCarta();
 
@@ -184,6 +201,7 @@ btnPedir.addEventListener('click', function() {
     }
         
 
+
 })
 
 btnNuevo.addEventListener('click', function() {
@@ -204,10 +222,12 @@ btnNuevo.addEventListener('click', function() {
     jugadorCartas.innerHTML = '';
     computadoraCartas.innerHTML = '';
     
-    //Volvemos a habilitar el boton de pedir
+    //Volvemos a habilitar el botones
     btnPedir.disabled = false;
     btnDetener.disabled = false;
     btnNuevo.disabled = false;
+    botonesAses[0].disabled = false;
+    botonesAses[1].disabled = false;
 })
 
 btnDetener.addEventListener('click', function() {
@@ -215,5 +235,7 @@ btnDetener.addEventListener('click', function() {
     btnPedir.disabled = true;
     btnDetener.disabled = true;
     btnNuevo.disabled = true;
+    botonesAses[0].disabled = true;
+    botonesAses[1].disabled = true;
     turnoComputador();
 })
