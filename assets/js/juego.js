@@ -115,7 +115,7 @@ const turnoComputador = () => {
                     btnNuevo.disabled = false;
                 }
                 
-                if(puntosComputadora <= puntosJugador){
+                if(puntosComputadora <= puntosJugador && puntosComputadora!==21){
                     turnoComputador();
                 }
             }, 1000);  
